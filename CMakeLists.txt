@@ -3,5 +3,5 @@ project(FastCopy)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp producer.cpp producer.h)
 add_executable(FastCopy ${SOURCE_FILES})
