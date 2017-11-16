@@ -9,7 +9,7 @@ void printHelp() {
 
 int main(int argc, const char **argv) {
     int consumerCount = 2;
-    size_t length = 4096;
+    size_t length = 65536;
     const char *readFile = NULL;
     const char *writeFile = NULL;
 

@@ -36,7 +36,7 @@ void consumer::start() {
 }
 
 void *consumer::writter(consumer *c) {
-    printf("consumer number %d running\n", c->_idx);
+//    printf("consumer number %d running\n", c->_idx);
     while (true) {
         c->_writterLock->lock();
         size_t offset = c->_writeCount * c->_maxLength * c->_consumerCount + (int) c->_maxLength * c->_idx;

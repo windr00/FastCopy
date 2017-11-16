@@ -22,7 +22,7 @@ producer *producer::getInstance() {
 }
 
 void *producer::reader(producer *p) {
-    printf("producer thread running\n");
+//    printf("producer thread running\n");
     while (!feof(p->_readFileHandle)) {
         for (int i = 0; i < p->_consumerCount; i++) {
             p->_readerLock[i]->lock();
