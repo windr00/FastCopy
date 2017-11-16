@@ -8,6 +8,7 @@ int main() {
     size_t length = 2;
     const char *readFile = "/home/windr/Desktop/test.txt";
     const char *writeFile = "/home/windr/Desktop/test-cpy.txt";
+    FILE * file = fopen(writeFile, "wb");
     auto **readLocks = new sem_lock *[consumerCount];
     auto **writeLocks = new sem_lock *[consumerCount];
     auto *writeDoneLock = new sem_lock(0);
@@ -22,6 +23,7 @@ int main() {
         buffers[i] = new unsigned char[length];
         actualReadLength[i] = new size_t(0);
         consumers[i] = new consumer(writeLocks[i],
+                                    file,
                                     fileLock,
                                     readLocks[i],
                                     writeDoneLock,
@@ -44,5 +46,6 @@ int main() {
             ->start();
 
     writeDoneLock->lock();
+    fclose(file);
     return 0;
 }

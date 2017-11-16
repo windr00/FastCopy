@@ -48,6 +48,7 @@ private:
 public:
 
     consumer(sem_lock *writterLock,
+             FILE * file,
              sem_lock *fileLock,
              sem_lock *readerLock,
              sem_lock *consumerWriteDoneLock,

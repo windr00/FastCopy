@@ -6,6 +6,7 @@
 #include "consumer.h"
 
 consumer::consumer(sem_lock *writterLock,
+                   FILE * file,
                    sem_lock *fileLock,
                    sem_lock *readLock,
                    sem_lock *writeDoneLock,
@@ -28,12 +29,11 @@ consumer::consumer(sem_lock *writterLock,
     this->_consumerCount = consumerCount;
     this->_writeCount = 0;
     this->_fileLock = fileLock;
+    this->_file = file;
 }
 
 
 void consumer::start() {
-    _file = fopen(_fileName, "wb");
-    fseek(_file, _maxLength * _idx, 0);
     pthread_create(&_thread, NULL, (void *(*)(void *)) this->writter, this);
 }
 
@@ -57,5 +57,4 @@ void *consumer::writter(consumer *c) {
 
 consumer::~consumer() {
     pthread_exit(&_thread);
-    fclose(_file);
 }
