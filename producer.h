@@ -6,41 +6,51 @@
 #define FASTCOPY_PRODUCER_H
 
 #include <pthread.h>
-#include <semaphore.h>
 #include <fstream>
+#include "sem_lock.h"
 
 class producer {
 private:
 
-    static producer *_instance = nullptr;
 
-    pthread_t *_thread;
+    pthread_t _thread;
 
-    const char *_filename;
+    const char *_readFileName;
 
-    int _bufferLength;
+    const char *_writeFileName;
+
+    size_t _bufferLength;
 
     int _consumerCount;
 
     unsigned char **_buffers;
 
-    sem_t *_sharedLock;
+    size_t **_actualReadSize;
 
-    sem_t *_internalReaderLock;
+    sem_lock **_readerLock;
 
-    std::ifstream _filehandle;
+    sem_lock **_writterLock;
+
+    int *_lastWriteConsumerIdx;
+
+    FILE *_readFileHandle;
+
+    FILE *_writeFileHandle;
+
 
 public:
 
-    static producer *GetInstance();
+    static producer *getInstance();
 
     void start();
 
-    void setFileName(const char *);
+    producer *setFileName(const char *, const char *writePath);
 
-    void setSharedLock(sem_t *lock);
+    producer *setSharedLock(sem_lock **readLock, sem_lock **writeLock);
 
-    void setReadBuffer(unsigned char **buffers, int length, int consumerCount);
+    producer *setReadBuffer(unsigned char **buffers, size_t **actualReadSize, size_t length, int consumerCount);
+
+    producer *setLastWriteConsumerIndex(int *idx);
 
 private:
 
@@ -49,7 +59,7 @@ private:
 
     ~producer();
 
-    void *reader(void *);
+    static void *reader(producer *);
 
 };
 
