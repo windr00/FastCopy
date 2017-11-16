@@ -6,7 +6,6 @@
 #define FASTCOPY_CONSUMER_H
 
 #include <semaphore.h>
-#include <zconf.h>
 #include <cstdio>
 #include "sem_lock.h"
 
