@@ -15,8 +15,6 @@ private:
 
     sem_lock *_writterLock;
 
-    sem_lock *_fileLock;
-
     sem_lock *_readerLock;
 
     sem_lock *_consumerWriteDoneLock;
@@ -47,8 +45,6 @@ private:
 public:
 
     consumer(sem_lock *writterLock,
-             FILE * file,
-             sem_lock *fileLock,
              sem_lock *readerLock,
              sem_lock *consumerWriteDoneLock,
              const char *fileName,

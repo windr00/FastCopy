@@ -17,7 +17,6 @@ private:
 
     const char *_readFileName;
 
-    const char *_writeFileName;
 
     size_t _bufferLength;
 
@@ -35,7 +34,6 @@ private:
 
     FILE *_readFileHandle;
 
-    FILE *_writeFileHandle;
 
 
 public:
@@ -44,7 +42,7 @@ public:
 
     void start();
 
-    producer *setFileName(const char *, const char *writePath);
+    producer *setFileName(const char *);
 
     producer *setSharedLock(sem_lock **readLock, sem_lock **writeLock);
 
